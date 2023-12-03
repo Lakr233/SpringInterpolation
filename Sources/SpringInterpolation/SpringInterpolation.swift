@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class SpringInterpolation {
+public struct SpringInterpolation {
     public private(set) var config: Configuration
     public private(set) var context: Context
 
@@ -21,7 +21,7 @@ public class SpringInterpolation {
     }
 
     @discardableResult
-    public func tik() -> Double {
+    public mutating func tik() -> Double {
         let ret = update(
             pos: context.currentPos,
             vel: context.currentVel,
@@ -32,12 +32,12 @@ public class SpringInterpolation {
         return ret.newPos
     }
 
-    public func setCurrent(_ pos: Double) {
+    public mutating func setCurrent(_ pos: Double) {
         context.currentPos = pos
         context.currentVel = 0
     }
 
-    public func setTarget(_ pos: Double) {
+    public mutating func setTarget(_ pos: Double) {
         context.targetPos = pos
     }
 

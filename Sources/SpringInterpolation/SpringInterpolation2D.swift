@@ -7,9 +7,9 @@
 
 import Foundation
 
-public class SpringInterpolation2D {
-    private let springX: SpringInterpolation
-    private let springY: SpringInterpolation
+public struct SpringInterpolation2D {
+    private var springX: SpringInterpolation
+    private var springY: SpringInterpolation
 
     public struct Vec2D {
         public let x: Double
@@ -39,18 +39,18 @@ public class SpringInterpolation2D {
     }
 
     @discardableResult
-    public func tik() -> Vec2D {
+    public mutating func  tik() -> Vec2D {
         let retX = springX.tik()
         let retY = springY.tik()
         return .init(x: retX, y: retY)
     }
 
-    public func setCurrent(_ pos: Vec2D, vel _: Vec2D? = nil) {
+    public mutating func setCurrent(_ pos: Vec2D, vel _: Vec2D? = nil) {
         springX.setCurrent(pos.x)
         springY.setCurrent(pos.y)
     }
 
-    public func setTarget(_ pos: Vec2D) {
+    public mutating func setTarget(_ pos: Vec2D) {
         springX.setTarget(pos.x)
         springY.setTarget(pos.y)
     }

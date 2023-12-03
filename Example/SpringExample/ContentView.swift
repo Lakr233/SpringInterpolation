@@ -15,7 +15,7 @@ struct ContentView: View {
     @State var target: CGPoint = .zero
     @State var offset: CGPoint = .zero
 
-    let spring: SpringInterpolation2D
+    @State var spring: SpringInterpolation2D
     let timer: Publishers.Autoconnect<Timer.TimerPublisher>
 
     init() {
