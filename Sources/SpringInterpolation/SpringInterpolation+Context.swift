@@ -36,8 +36,8 @@ public extension SpringInterpolation {
     }
 }
 
-extension SpringInterpolation.Configuration {
-    func generateInitialContext() -> SpringInterpolation.Context {
+public extension SpringInterpolation.Configuration {
+    func generateContext() -> SpringInterpolation.Context {
         if angularFrequency < epsilon {
             return .init(posPosCoef: 1, posVelCoef: 0, velPosCoef: 0, velVelCoef: 1)
         }

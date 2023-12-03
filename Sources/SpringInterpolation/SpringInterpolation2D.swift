@@ -8,8 +8,8 @@
 import Foundation
 
 public struct SpringInterpolation2D {
-    private var springX: SpringInterpolation
-    private var springY: SpringInterpolation
+    public private(set) var springX: SpringInterpolation
+    public private(set) var springY: SpringInterpolation
 
     public struct Vec2D {
         public let x: Double
@@ -39,7 +39,7 @@ public struct SpringInterpolation2D {
     }
 
     @discardableResult
-    public mutating func  tik() -> Vec2D {
+    public mutating func tik() -> Vec2D {
         let retX = springX.tik()
         let retY = springY.tik()
         return .init(x: retX, y: retY)

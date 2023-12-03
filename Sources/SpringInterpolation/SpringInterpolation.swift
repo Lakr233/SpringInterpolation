@@ -17,7 +17,7 @@ public struct SpringInterpolation {
 
     public init(_ config: Configuration = .init()) {
         self.config = config
-        context = config.generateInitialContext()
+        context = config.generateContext()
     }
 
     @discardableResult
