@@ -9,7 +9,6 @@ import Foundation
 
 public extension SpringInterpolation {
     struct Configuration {
-        public let fps: Int
         public let deltaTime: Double
         public let angularFrequency: Double
         public let dampingRatio: Double
@@ -23,7 +22,6 @@ public extension SpringInterpolation {
             angularFrequency: Double = defaultAngularFrequency,
             dampingRatio: Double = defaultDampingRatio
         ) {
-            self.fps = fps
             deltaTime = 1.0 / Double(fps)
             self.angularFrequency = angularFrequency
             self.dampingRatio = dampingRatio
@@ -37,7 +35,6 @@ public extension SpringInterpolation {
             angularFrequency: Double = defaultAngularFrequency,
             dampingRatio: Double = defaultDampingRatio
         ) {
-            fps = Int(1.0 / deltaTime)
             self.deltaTime = deltaTime
             self.angularFrequency = angularFrequency
             self.dampingRatio = dampingRatio
