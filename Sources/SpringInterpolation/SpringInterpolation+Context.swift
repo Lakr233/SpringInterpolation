@@ -8,7 +8,7 @@
 import Foundation
 
 public extension SpringInterpolation {
-    struct Context {
+    struct Context: Equatable, Hashable {
         public var currentPos: Double
         public var currentVel: Double
         public var targetPos: Double

@@ -7,11 +7,11 @@
 
 import Foundation
 
-public struct SpringInterpolation2D {
+public struct SpringInterpolation2D: Equatable, Hashable {
     public var x: SpringInterpolation
     public var y: SpringInterpolation
 
-    public struct Vec2D {
+    public struct Vec2D: Equatable, Hashable {
         public let x: Double
         public let y: Double
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct SpringInterpolation {
+public struct SpringInterpolation: Equatable, Hashable {
     public var config: Configuration
     public var context: Context
 

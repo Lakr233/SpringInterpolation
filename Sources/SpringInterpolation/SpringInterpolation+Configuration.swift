@@ -8,7 +8,7 @@
 import Foundation
 
 public extension SpringInterpolation {
-    struct Configuration {
+    struct Configuration: Equatable, Hashable {
         public var angularFrequency: Double
         public var dampingRatio: Double
 
