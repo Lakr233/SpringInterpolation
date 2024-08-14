@@ -30,9 +30,9 @@ public struct SpringInterpolation2D: Equatable, Hashable {
     }
 
     @discardableResult
-    public mutating func update(withDeltaTime interval: TimeInterval, stopWhenHitTarget: Bool = false) -> Vec2D {
-        let retX = x.update(withDeltaTime: interval, stopWhenHitTarget: stopWhenHitTarget)
-        let retY = y.update(withDeltaTime: interval, stopWhenHitTarget: stopWhenHitTarget)
+    public mutating func update(withDeltaTime interval: TimeInterval) -> Vec2D {
+        let retX = x.update(withDeltaTime: interval)
+        let retY = y.update(withDeltaTime: interval)
         return .init(x: retX, y: retY)
     }
 
@@ -49,5 +49,10 @@ public struct SpringInterpolation2D: Equatable, Hashable {
     public mutating func setThreshold(_ threshold: Double) {
         x.setThreshold(threshold)
         y.setThreshold(threshold)
+    }
+
+    public mutating func setConfig(_ config: SpringInterpolation.Configuration) {
+        x.config = config
+        y.config = config
     }
 }

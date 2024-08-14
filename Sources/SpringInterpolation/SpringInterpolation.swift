@@ -19,7 +19,7 @@ public struct SpringInterpolation: Equatable, Hashable {
     }
 
     @discardableResult
-    public mutating func update(withDeltaTime interval: TimeInterval, stopWhenHitTarget: Bool = false) -> Double {
+    public mutating func update(withDeltaTime interval: TimeInterval) -> Double {
         let oldPos = context.currentPos - context.targetPos
         let oldVel = context.currentVel
         let parms = config.generateParameters(deltaTime: interval)
@@ -29,7 +29,7 @@ public struct SpringInterpolation: Equatable, Hashable {
         context.currentVel = newVel
         if abs(newPos - context.targetPos) < config.threshold {
             context.currentPos = context.targetPos
-            if stopWhenHitTarget { context.currentVel = 0 }
+            if config.stopWhenHitTarget { context.currentVel = 0 }
         }
         return context.currentPos
     }

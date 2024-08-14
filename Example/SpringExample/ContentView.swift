@@ -50,10 +50,7 @@ struct ContentView: View {
         .onReceive(timer) { _ in
             defer { lastUpdate = .init() }
             springEngine.setTarget(.init(x: target.x, y: target.y))
-            let ret = springEngine.update(
-                withDeltaTime: -lastUpdate.timeIntervalSinceNow,
-                stopWhenHitTarget: stopWhenHitTarget
-            )
+            let ret = springEngine.update(withDeltaTime: -lastUpdate.timeIntervalSinceNow)
             offset = .init(x: ret.x, y: ret.y)
         }
     }
@@ -90,11 +87,11 @@ struct ContentView: View {
     var control: some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
-                Slider(value: $dampingRatio, in: 0 ... 1, step: 0.1) {
+                Slider(value: $dampingRatio, in: 0.00001 ... 1, step: 0.1) {
                     Text("Damping Ratio \(dampingRatio, specifier: "%.2f")")
                         .frame(width: 200, alignment: .leading)
                 } onEditingChanged: { _ in }
-                Slider(value: $angularFrequency, in: 0 ... 10, step: 0.25) {
+                Slider(value: $angularFrequency, in: 0.00001 ... 10, step: 0.25) {
                     Text("Angular Frequency \(angularFrequency, specifier: "%.2f")")
                         .frame(width: 200, alignment: .leading)
                 } onEditingChanged: { _ in }
@@ -146,9 +143,11 @@ struct ContentView: View {
     }
 
     func updateConfig() {
-        springEngine.x.config.dampingRatio = dampingRatio
-        springEngine.y.config.dampingRatio = dampingRatio
-        springEngine.x.config.angularFrequency = angularFrequency
-        springEngine.y.config.angularFrequency = angularFrequency
+        springEngine.setConfig(.init(
+            angularFrequency: angularFrequency,
+            dampingRatio: dampingRatio,
+            threshold: 0.00001,
+            stopWhenHitTarget: stopWhenHitTarget
+        ))
     }
 }
