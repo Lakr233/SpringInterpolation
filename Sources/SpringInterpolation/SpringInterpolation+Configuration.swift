@@ -11,20 +11,23 @@ public extension SpringInterpolation {
     struct Configuration: Equatable, Hashable {
         public var angularFrequency: Double
         public var dampingRatio: Double
-        public var threshold: Double = .ulpOfOne
+        public var threshold: Double
 
         public static let defaultAngularFrequency: Double = 4
         public static let defaultDampingRatio: Double = 1
 
         public init(
             angularFrequency: Double = defaultAngularFrequency,
-            dampingRatio: Double = defaultDampingRatio
+            dampingRatio: Double = defaultDampingRatio,
+            threshold: Double = .ulpOfOne
         ) {
             self.angularFrequency = angularFrequency
             self.dampingRatio = dampingRatio
+            self.threshold = threshold
 
             assert(angularFrequency > 0)
             assert(dampingRatio > 0)
+            assert(threshold >= 0)
         }
     }
 }
