@@ -11,6 +11,7 @@ public extension SpringInterpolation {
     struct Configuration: Equatable, Hashable {
         public var angularFrequency: Double
         public var dampingRatio: Double
+        public var threshold: Double = .ulpOfOne
 
         public static let defaultAngularFrequency: Double = 4
         public static let defaultDampingRatio: Double = 1

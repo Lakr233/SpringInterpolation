@@ -24,6 +24,9 @@ struct ContentView: View {
     @AppStorage("angularFrequency")
     var angularFrequency: Double = SpringInterpolation.Configuration.defaultAngularFrequency
 
+    @AppStorage("stopWhenHitTarget")
+    var stopWhenHitTarget: Bool = false
+
     var body: some View {
         VStack(spacing: 0) {
             Text("Spring Interpolation Engine 2D")
@@ -47,7 +50,10 @@ struct ContentView: View {
         .onReceive(timer) { _ in
             defer { lastUpdate = .init() }
             springEngine.setTarget(.init(x: target.x, y: target.y))
-            let ret = springEngine.update(withDeltaTime: -lastUpdate.timeIntervalSinceNow)
+            let ret = springEngine.update(
+                withDeltaTime: -lastUpdate.timeIntervalSinceNow,
+                stopWhenHitTarget: stopWhenHitTarget
+            )
             offset = .init(x: ret.x, y: ret.y)
         }
     }
@@ -92,6 +98,7 @@ struct ContentView: View {
                     Text("Angular Frequency \(angularFrequency, specifier: "%.2f")")
                         .frame(width: 200, alignment: .leading)
                 } onEditingChanged: { _ in }
+                Toggle("Stop When Hit Target", isOn: $stopWhenHitTarget)
             }
         }
         .font(.system(.footnote, design: .monospaced, weight: .regular))
