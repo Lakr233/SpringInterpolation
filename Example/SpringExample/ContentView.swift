@@ -119,6 +119,16 @@ struct ContentView: View {
                     Spacer()
                     Text("\(springEngine.x.context.targetPos)")
                 }
+                HStack {
+                    Text("x.threshold")
+                    Spacer()
+                    Text("\(springEngine.x.config.threshold)")
+                }
+                HStack {
+                    Text("x.completed")
+                    Spacer()
+                    Text("\(springEngine.x.completed)")
+                }
             }
             Spacer().padding(.horizontal)
             VStack(alignment: .leading, spacing: 4) {
@@ -136,6 +146,16 @@ struct ContentView: View {
                     Text("y.target")
                     Spacer()
                     Text("\(springEngine.y.context.targetPos)")
+                }
+                HStack {
+                    Text("y.threshold")
+                    Spacer()
+                    Text("\(springEngine.y.config.threshold)")
+                }
+                HStack {
+                    Text("y.completed")
+                    Spacer()
+                    Text("\(springEngine.y.completed)")
                 }
             }
         }

@@ -55,4 +55,8 @@ public struct SpringInterpolation2D: Equatable, Hashable {
         x.config = config
         y.config = config
     }
+
+    public var completed: Bool {
+        x.completed && y.completed
+    }
 }

@@ -34,3 +34,19 @@ public extension SpringInterpolation {
         }
     }
 }
+
+public extension SpringInterpolation.Configuration {
+    static let forInterfaceAnimation: Self = .init(
+        angularFrequency: 10,
+        dampingRatio: 0.75,
+        threshold: 1,
+        stopWhenHitTarget: true
+    )
+
+    static let forDragAnimation: Self = .init(
+        angularFrequency: 8,
+        dampingRatio: 0.7,
+        threshold: 1,
+        stopWhenHitTarget: false
+    )
+}

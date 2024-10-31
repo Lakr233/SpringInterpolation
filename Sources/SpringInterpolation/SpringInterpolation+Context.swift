@@ -25,6 +25,12 @@ public extension SpringInterpolation {
     }
 }
 
+public extension SpringInterpolation {
+    var completed: Bool {
+        abs(context.currentPos.distance(to: context.targetPos)).isLessThanOrEqualTo(config.threshold)
+    }
+}
+
 public extension SpringInterpolation.Configuration {
     func generateParameters(deltaTime: Double) -> SpringInterpolation.Parameters {
         if angularFrequency < .ulpOfOne {
