@@ -5,6 +5,9 @@
       location = "group:SpringExample.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:SpringTimingFunction.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:..">
    </FileRef>
 </Workspace>

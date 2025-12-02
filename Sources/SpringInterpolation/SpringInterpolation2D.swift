@@ -23,7 +23,7 @@ public struct SpringInterpolation2D: Equatable, Hashable {
 
     public init(
         _ config: SpringInterpolation.Configuration = .init(),
-        _ context: SpringInterpolation.Context = .init()
+        _ context: SpringInterpolation.Context = .init(),
     ) {
         x = .init(config: config, context: context)
         y = .init(config: config, context: context)

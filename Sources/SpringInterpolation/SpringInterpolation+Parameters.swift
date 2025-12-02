@@ -18,7 +18,7 @@ public extension SpringInterpolation {
             posPosCoef: Double,
             posVelCoef: Double,
             velPosCoef: Double,
-            velVelCoef: Double
+            velVelCoef: Double,
         ) {
             self.deltaTime = deltaTime
             self.posPosCoef = posPosCoef

@@ -79,8 +79,7 @@ struct ContentView: View {
                 .gesture(DragGesture()
                     .onChanged { gesture in
                         target = .init(x: gesture.location.x - 5, y: gesture.location.y - 5)
-                    }
-                )
+                    })
         }
     }
 
@@ -167,7 +166,7 @@ struct ContentView: View {
             angularFrequency: angularFrequency,
             dampingRatio: dampingRatio,
             threshold: 0.00001,
-            stopWhenHitTarget: stopWhenHitTarget
+            stopWhenHitTarget: stopWhenHitTarget,
         ))
     }
 }
