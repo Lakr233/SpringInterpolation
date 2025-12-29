@@ -59,4 +59,20 @@ public struct SpringInterpolation2D: Equatable, Hashable {
     public var completed: Bool {
         x.completed && y.completed
     }
+
+    public var velocity: Vec2D {
+        .init(x: x.context.currentVel, y: y.context.currentVel)
+    }
+
+    public var acceleration: Vec2D {
+        .init(x: x.context.currentAcceleration, y: y.context.currentAcceleration)
+    }
+
+    public var deformation: Vec2D {
+        .init(x: x.deformation, y: y.deformation)
+    }
+
+    public var deformationMagnitude: Double {
+        max(x.deformation, y.deformation)
+    }
 }

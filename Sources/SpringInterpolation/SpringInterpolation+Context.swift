@@ -12,6 +12,10 @@ public extension SpringInterpolation {
         public var currentPos: Double
         public var currentVel: Double
         public var targetPos: Double
+        public var currentAcceleration: Double
+        public var velocityDelta: Double
+        public var accelerationDelta: Double
+        public var lastDeltaTime: TimeInterval
 
         public init(
             currentPos: Double = 0,
@@ -21,13 +25,35 @@ public extension SpringInterpolation {
             self.currentPos = currentPos
             self.currentVel = currentVel
             self.targetPos = targetPos
+            currentAcceleration = 0
+            velocityDelta = 0
+            accelerationDelta = 0
+            lastDeltaTime = 0
         }
     }
 }
 
 public extension SpringInterpolation {
     var completed: Bool {
-        abs(context.currentPos.distance(to: context.targetPos)).isLessThanOrEqualTo(config.threshold)
+        abs(context.currentPos.distance(to: context.targetPos))
+            .isLessThanOrEqualTo(config.threshold)
+    }
+}
+
+public extension SpringInterpolation {
+    /// Normalized deformation derived from recent velocity and acceleration changes.
+    ///
+    /// The value is clamped to `[0, configuration.deformationResponse.maximum]`
+    /// and weights velocity change more than acceleration change by default.
+    var deformation: Double {
+        let response = config.deformationResponse
+        let velocityContribution = 1
+            - exp(-abs(context.velocityDelta) * response.velocityScale)
+        let accelerationContribution = 1
+            - exp(-abs(context.accelerationDelta) * response.accelerationScale)
+        let blended = velocityContribution * response.velocityInfluence
+            + accelerationContribution * (1 - response.velocityInfluence)
+        return min(response.maximum, blended)
     }
 }
 

@@ -13,6 +13,7 @@ public extension SpringInterpolation {
         public var dampingRatio: Double
         public var threshold: Double
         public var stopWhenHitTarget: Bool
+        public var deformationResponse: DeformationResponse
 
         public static let defaultAngularFrequency: Double = 4
         public static let defaultDampingRatio: Double = 1
@@ -22,17 +23,53 @@ public extension SpringInterpolation {
             dampingRatio: Double = defaultDampingRatio,
             threshold: Double = 0.0001,
             stopWhenHitTarget: Bool = false,
+            deformationResponse: DeformationResponse = .default,
         ) {
             self.angularFrequency = angularFrequency
             self.dampingRatio = dampingRatio
             self.threshold = threshold
             self.stopWhenHitTarget = stopWhenHitTarget
+            self.deformationResponse = deformationResponse
 
             assert(angularFrequency > 0)
             assert(dampingRatio > 0)
             assert(threshold >= 0)
+            assert(deformationResponse.velocityScale >= 0)
+            assert(deformationResponse.accelerationScale >= 0)
+            assert((0 ... 1).contains(deformationResponse.velocityInfluence))
+            assert(deformationResponse.maximum >= 0)
         }
     }
+}
+
+public extension SpringInterpolation.Configuration {
+    struct DeformationResponse: Equatable, Hashable {
+        public var velocityScale: Double
+        public var accelerationScale: Double
+        public var velocityInfluence: Double
+        public var maximum: Double
+
+        public init(
+            velocityScale: Double = 0.015,
+            accelerationScale: Double = 0.0025,
+            velocityInfluence: Double = 0.65,
+            maximum: Double = 0.35,
+        ) {
+            self.velocityScale = velocityScale
+            self.accelerationScale = accelerationScale
+            self.velocityInfluence = velocityInfluence
+            self.maximum = maximum
+
+            assert(velocityScale >= 0)
+            assert(accelerationScale >= 0)
+            assert((0 ... 1).contains(velocityInfluence))
+            assert(maximum >= 0)
+        }
+    }
+}
+
+public extension SpringInterpolation.Configuration.DeformationResponse {
+    static let `default`: Self = .init()
 }
 
 public extension SpringInterpolation.Configuration {

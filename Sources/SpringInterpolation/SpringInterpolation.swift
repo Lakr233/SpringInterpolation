@@ -22,14 +22,27 @@ public struct SpringInterpolation: Equatable, Hashable {
     public mutating func update(withDeltaTime interval: TimeInterval) -> Double {
         let oldPos = context.currentPos - context.targetPos
         let oldVel = context.currentVel
-        let parms = config.generateParameters(deltaTime: interval)
+        let deltaTime = max(interval, 0)
+        let parms = config.generateParameters(deltaTime: deltaTime)
         let newPos = oldPos * parms.posPosCoef + oldVel * parms.posVelCoef + context.targetPos
         let newVel = oldPos * parms.velPosCoef + oldVel * parms.velVelCoef
+        let previousAcceleration = context.currentAcceleration
+        let newAcceleration = deltaTime > 0 ? (newVel - oldVel) / deltaTime : 0
+
+        context.lastDeltaTime = deltaTime
         context.currentPos = newPos
         context.currentVel = newVel
+        context.velocityDelta = abs(newVel - oldVel)
+        context.accelerationDelta = abs(newAcceleration - previousAcceleration)
+        context.currentAcceleration = newAcceleration
         if abs(newPos - context.targetPos) < config.threshold {
             context.currentPos = context.targetPos
-            if config.stopWhenHitTarget { context.currentVel = 0 }
+            if config.stopWhenHitTarget {
+                context.currentVel = 0
+                context.currentAcceleration = 0
+                context.velocityDelta = 0
+                context.accelerationDelta = 0
+            }
         }
         return context.currentPos
     }
@@ -37,6 +50,10 @@ public struct SpringInterpolation: Equatable, Hashable {
     public mutating func setCurrent(_ pos: Double, _ vel: Double = 0) {
         context.currentPos = pos
         context.currentVel = vel
+        context.currentAcceleration = 0
+        context.velocityDelta = 0
+        context.accelerationDelta = 0
+        context.lastDeltaTime = 0
     }
 
     public mutating func setTarget(_ pos: Double) {
