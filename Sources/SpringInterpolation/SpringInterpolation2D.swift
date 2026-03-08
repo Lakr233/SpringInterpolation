@@ -7,11 +7,11 @@
 
 import Foundation
 
-public struct SpringInterpolation2D: Equatable, Hashable {
+public struct SpringInterpolation2D: Equatable, Hashable, Sendable {
     public var x: SpringInterpolation
     public var y: SpringInterpolation
 
-    public struct Vec2D: Equatable, Hashable {
+    public struct Vec2D: Equatable, Hashable, Sendable {
         public let x: Double
         public let y: Double
 
@@ -23,7 +23,7 @@ public struct SpringInterpolation2D: Equatable, Hashable {
 
     public init(
         _ config: SpringInterpolation.Configuration = .init(),
-        _ context: SpringInterpolation.Context = .init(),
+        _ context: SpringInterpolation.Context = .init()
     ) {
         x = .init(config: config, context: context)
         y = .init(config: config, context: context)

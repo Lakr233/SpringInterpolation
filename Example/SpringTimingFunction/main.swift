@@ -12,6 +12,6 @@ MainActor.assumeIsolated {
     NSApplication.shared.delegate = delegate
     _ = NSApplicationMain(
         CommandLine.argc,
-        CommandLine.unsafeArgv,
+        CommandLine.unsafeArgv
     )
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 public extension SpringInterpolation {
-    struct Configuration: Equatable, Hashable {
+    struct Configuration: Equatable, Hashable, Sendable {
         public var angularFrequency: Double
         public var dampingRatio: Double
         public var threshold: Double
@@ -23,7 +23,7 @@ public extension SpringInterpolation {
             dampingRatio: Double = defaultDampingRatio,
             threshold: Double = 0.0001,
             stopWhenHitTarget: Bool = false,
-            deformationResponse: DeformationResponse = .default,
+            deformationResponse: DeformationResponse = .default
         ) {
             self.angularFrequency = angularFrequency
             self.dampingRatio = dampingRatio
@@ -43,7 +43,7 @@ public extension SpringInterpolation {
 }
 
 public extension SpringInterpolation.Configuration {
-    struct DeformationResponse: Equatable, Hashable {
+    struct DeformationResponse: Equatable, Hashable, Sendable {
         public var velocityScale: Double
         public var accelerationScale: Double
         public var velocityInfluence: Double
@@ -53,7 +53,7 @@ public extension SpringInterpolation.Configuration {
             velocityScale: Double = 0.015,
             accelerationScale: Double = 0.0025,
             velocityInfluence: Double = 0.65,
-            maximum: Double = 0.35,
+            maximum: Double = 0.35
         ) {
             self.velocityScale = velocityScale
             self.accelerationScale = accelerationScale
@@ -77,14 +77,14 @@ public extension SpringInterpolation.Configuration {
         angularFrequency: 10,
         dampingRatio: 0.75,
         threshold: 1,
-        stopWhenHitTarget: true,
+        stopWhenHitTarget: true
     )
 
     static let forDragAnimation: Self = .init(
         angularFrequency: 8,
         dampingRatio: 0.7,
         threshold: 1,
-        stopWhenHitTarget: false,
+        stopWhenHitTarget: false
     )
 }
 

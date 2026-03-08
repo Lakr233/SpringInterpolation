@@ -8,7 +8,7 @@
 import Foundation
 
 public extension SpringInterpolation {
-    struct Context: Equatable, Hashable {
+    struct Context: Equatable, Hashable, Sendable {
         public var currentPos: Double
         public var currentVel: Double
         public var targetPos: Double
@@ -20,7 +20,7 @@ public extension SpringInterpolation {
         public init(
             currentPos: Double = 0,
             currentVel: Double = 0,
-            targetPos: Double = 0,
+            targetPos: Double = 0
         ) {
             self.currentPos = currentPos
             self.currentVel = currentVel
@@ -65,7 +65,7 @@ public extension SpringInterpolation.Configuration {
                 posPosCoef: 1,
                 posVelCoef: 0,
                 velPosCoef: 0,
-                velVelCoef: 1,
+                velVelCoef: 1
             )
         }
 
@@ -95,7 +95,7 @@ public extension SpringInterpolation.Configuration {
                 posPosCoef: posPosCoef,
                 posVelCoef: posVelCoef,
                 velPosCoef: velPosCoef,
-                velVelCoef: velVelCoef,
+                velVelCoef: velVelCoef
             )
         }
 
@@ -124,7 +124,7 @@ public extension SpringInterpolation.Configuration {
                 posPosCoef: posPosCoef,
                 posVelCoef: posVelCoef,
                 velPosCoef: velPosCoef,
-                velVelCoef: velVelCoef,
+                velVelCoef: velVelCoef
             )
         }
 
@@ -142,7 +142,7 @@ public extension SpringInterpolation.Configuration {
             posPosCoef: posPosCoef,
             posVelCoef: posVelCoef,
             velPosCoef: velPosCoef,
-            velVelCoef: velVelCoef,
+            velVelCoef: velVelCoef
         )
     }
 }

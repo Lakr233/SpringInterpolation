@@ -75,7 +75,7 @@ struct ContentView: View {
                 }
                 .stroke(
                     .green.opacity(0.25),
-                    lineWidth: CGFloat(max(1, deformationVisualState.amount * 18)),
+                    lineWidth: CGFloat(max(1, deformationVisualState.amount * 18))
                 )
 
                 Circle()
@@ -89,7 +89,7 @@ struct ContentView: View {
                     .scaleEffect(
                         x: deformationVisualState.scaleX,
                         y: deformationVisualState.scaleY,
-                        anchor: .center,
+                        anchor: .center
                     )
                     .rotationEffect(deformationVisualState.angle)
                     .offset(x: offset.x, y: offset.y)
@@ -97,7 +97,7 @@ struct ContentView: View {
                         color: .green.opacity(0.35),
                         radius: max(2, deformationVisualState.amount * 16),
                         x: 0,
-                        y: deformationVisualState.amount * 8,
+                        y: deformationVisualState.amount * 8
                     )
 
                 Text("deformation \(deformationVisualState.amount, specifier: "%.3f")")
@@ -238,7 +238,7 @@ struct ContentView: View {
             angularFrequency: angularFrequency,
             dampingRatio: dampingRatio,
             threshold: 0.00001,
-            stopWhenHitTarget: stopWhenHitTarget,
+            stopWhenHitTarget: stopWhenHitTarget
         ))
     }
 
@@ -251,7 +251,7 @@ struct ContentView: View {
             scaleX: CGFloat(stretch),
             scaleY: CGFloat(squash),
             angle: velocityAngle(for: velocity),
-            amount: amount,
+            amount: amount
         )
     }
 

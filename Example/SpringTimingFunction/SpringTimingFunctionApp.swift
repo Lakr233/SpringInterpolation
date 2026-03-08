@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             contentRect: windowRect,
             styleMask: [.titled, .closable, .miniaturizable, .resizable],
             backing: .buffered,
-            defer: false,
+            defer: false
         )
         window.title = "Spring Timing Function Demo"
         window.center()

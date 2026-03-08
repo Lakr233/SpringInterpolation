@@ -151,7 +151,7 @@ class SpringDemoView: NSView {
             x: padding,
             y: bounds.height - padding - curveHeight,
             width: bounds.width - padding * 2,
-            height: curveHeight,
+            height: curveHeight
         )
 
         // Animation area
@@ -163,7 +163,7 @@ class SpringDemoView: NSView {
             x: animationFromX,
             y: animationAreaTop - animationAreaHeight / 2 - boxSize / 2,
             width: boxSize,
-            height: boxSize,
+            height: boxSize
         )
 
         animationToX = bounds.width - padding - boxSize
@@ -227,7 +227,7 @@ class SpringDemoView: NSView {
     private func updateTimingFunction() {
         currentTiming = SpringTimingFunction(
             dampingRatio: dampingSlider.doubleValue,
-            duration: durationSlider.doubleValue,
+            duration: durationSlider.doubleValue
         )
         curveView.timingFunction = currentTiming
         curveView.needsDisplay = true

@@ -20,7 +20,7 @@
     /// let timing = SpringTimingFunction(angularFrequency: 10, dampingRatio: 0.75)
     /// let progress = timing.value(at: 0.5) // Get progress at 50% of duration
     /// ```
-    public struct SpringTimingFunction: Equatable, Hashable {
+    public struct SpringTimingFunction: Equatable, Hashable, Sendable {
         /// The spring configuration used for timing calculations.
         public let configuration: SpringInterpolation.Configuration
 
@@ -44,14 +44,14 @@
         public init(
             dampingRatio: Double = SpringInterpolation.Configuration.defaultDampingRatio,
             duration: TimeInterval = 1.0,
-            sampleCount: Int = 256,
+            sampleCount: Int = 256
         ) {
             // Angular frequency is redundant when fitting to duration, so we use a constant.
             configuration = .init(
                 angularFrequency: 10.0,
                 dampingRatio: dampingRatio,
                 threshold: 0.0001,
-                stopWhenHitTarget: true,
+                stopWhenHitTarget: true
             )
             self.sampleCount = max(2, sampleCount)
             self.duration = duration
@@ -67,7 +67,7 @@
             timingValues = Self.generateTimingValues(
                 configuration: configuration,
                 duration: generationDuration,
-                sampleCount: self.sampleCount,
+                sampleCount: self.sampleCount
             )
         }
 
@@ -80,7 +80,7 @@
         public init(
             configuration: SpringInterpolation.Configuration,
             duration: TimeInterval = 1.0,
-            sampleCount: Int = 256,
+            sampleCount: Int = 256
         ) {
             self.configuration = configuration
             self.sampleCount = max(2, sampleCount)
@@ -97,7 +97,7 @@
             timingValues = Self.generateTimingValues(
                 configuration: configuration,
                 duration: generationDuration,
-                sampleCount: self.sampleCount,
+                sampleCount: self.sampleCount
             )
         }
 
@@ -105,7 +105,7 @@
         private static func generateTimingValues(
             configuration: SpringInterpolation.Configuration,
             duration: TimeInterval,
-            sampleCount: Int,
+            sampleCount: Int
         ) -> [Double] {
             var spring = SpringInterpolation(config: configuration)
             spring.setCurrent(0)
@@ -165,35 +165,35 @@
         /// Uses higher angular frequency and moderate damping for snappy, responsive feel.
         static let interface = SpringTimingFunction(
             dampingRatio: 0.75,
-            duration: 0.5,
+            duration: 0.5
         )
 
         /// A timing function suitable for drag animations.
         /// Uses moderate angular frequency and lower damping for fluid, natural motion.
         static let drag = SpringTimingFunction(
             dampingRatio: 0.7,
-            duration: 0.6,
+            duration: 0.6
         )
 
         /// A timing function with gentle spring motion.
         /// Suitable for subtle, non-intrusive animations.
         static let gentle = SpringTimingFunction(
             dampingRatio: 0.9,
-            duration: 0.8,
+            duration: 0.8
         )
 
         /// A timing function with bouncy spring motion.
         /// Suitable for playful, attention-grabbing animations.
         static let bouncy = SpringTimingFunction(
             dampingRatio: 0.5,
-            duration: 0.7,
+            duration: 0.7
         )
 
         /// A timing function with stiff spring motion.
         /// Suitable for quick, precise animations.
         static let stiff = SpringTimingFunction(
             dampingRatio: 0.85,
-            duration: 0.4,
+            duration: 0.4
         )
     }
 
@@ -234,7 +234,7 @@
             keyPath: String,
             from fromValue: CGFloat,
             to toValue: CGFloat,
-            keyframeCount: Int = 60,
+            keyframeCount: Int = 60
         ) -> CAKeyframeAnimation {
             let animation = CAKeyframeAnimation(keyPath: keyPath)
             animation.duration = duration
@@ -268,7 +268,7 @@
         func positionAnimation(
             from: CGPoint,
             to: CGPoint,
-            keyframeCount: Int = 60,
+            keyframeCount: Int = 60
         ) -> CAKeyframeAnimation {
             let animation = CAKeyframeAnimation(keyPath: "position")
             animation.duration = duration
@@ -304,13 +304,13 @@
         func scaleAnimation(
             from: CGFloat,
             to: CGFloat,
-            keyframeCount: Int = 60,
+            keyframeCount: Int = 60
         ) -> CAKeyframeAnimation {
             keyframeAnimation(
                 keyPath: "transform.scale",
                 from: from,
                 to: to,
-                keyframeCount: keyframeCount,
+                keyframeCount: keyframeCount
             )
         }
 
@@ -324,13 +324,13 @@
         func opacityAnimation(
             from: CGFloat,
             to: CGFloat,
-            keyframeCount: Int = 60,
+            keyframeCount: Int = 60
         ) -> CAKeyframeAnimation {
             keyframeAnimation(
                 keyPath: "opacity",
                 from: from,
                 to: to,
-                keyframeCount: keyframeCount,
+                keyframeCount: keyframeCount
             )
         }
     }
@@ -347,7 +347,7 @@
         func animate(
             to frame: NSRect,
             timing: SpringTimingFunction,
-            completion: (() -> Void)? = nil,
+            completion: (@Sendable () -> Void)? = nil
         ) {
             let fromFrame = self.frame
 
@@ -380,7 +380,7 @@
             // Animate position
             let positionAnimation = timing.positionAnimation(
                 from: CGPoint(x: fromFrame.midX, y: fromFrame.midY),
-                to: CGPoint(x: frame.midX, y: frame.midY),
+                to: CGPoint(x: frame.midX, y: frame.midY)
             )
 
             layer?.add(boundsAnimation, forKey: "springBounds")
@@ -401,7 +401,7 @@
         func animate(
             toAlpha alpha: CGFloat,
             timing: SpringTimingFunction,
-            completion: (() -> Void)? = nil,
+            completion: (@Sendable () -> Void)? = nil
         ) {
             guard let layer else {
                 alphaValue = alpha
@@ -414,7 +414,7 @@
 
             let animation = timing.opacityAnimation(
                 from: CGFloat(layer.opacity),
-                to: alpha,
+                to: alpha
             )
 
             layer.add(animation, forKey: "springOpacity")

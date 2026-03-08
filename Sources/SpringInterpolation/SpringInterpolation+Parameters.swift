@@ -8,7 +8,7 @@
 import Foundation
 
 public extension SpringInterpolation {
-    struct Parameters: Equatable, Hashable {
+    struct Parameters: Equatable, Hashable, Sendable {
         public let deltaTime: Double
         public let posPosCoef, posVelCoef: Double
         public let velPosCoef, velVelCoef: Double
@@ -18,7 +18,7 @@ public extension SpringInterpolation {
             posPosCoef: Double,
             posVelCoef: Double,
             velPosCoef: Double,
-            velVelCoef: Double,
+            velVelCoef: Double
         ) {
             self.deltaTime = deltaTime
             self.posPosCoef = posPosCoef

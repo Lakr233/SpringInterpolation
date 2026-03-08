@@ -7,11 +7,13 @@
 
 import Foundation
 
-public struct SpringInterpolation: Equatable, Hashable {
+public struct SpringInterpolation: Equatable, Hashable, Sendable {
     public var config: Configuration
     public var context: Context
 
-    public var value: Double { context.currentPos }
+    public var value: Double {
+        context.currentPos
+    }
 
     public init(config: Configuration = .init(), context: Context = .init()) {
         self.config = config
