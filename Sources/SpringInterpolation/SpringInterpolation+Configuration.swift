@@ -23,7 +23,7 @@ public extension SpringInterpolation {
             dampingRatio: Double = defaultDampingRatio,
             threshold: Double = 0.0001,
             stopWhenHitTarget: Bool = false,
-            deformationResponse: DeformationResponse = .default
+            deformationResponse: DeformationResponse = .default,
         ) {
             self.angularFrequency = angularFrequency
             self.dampingRatio = dampingRatio
@@ -53,7 +53,7 @@ public extension SpringInterpolation.Configuration {
             velocityScale: Double = 0.015,
             accelerationScale: Double = 0.0025,
             velocityInfluence: Double = 0.65,
-            maximum: Double = 0.35
+            maximum: Double = 0.35,
         ) {
             self.velocityScale = velocityScale
             self.accelerationScale = accelerationScale
@@ -77,20 +77,22 @@ public extension SpringInterpolation.Configuration {
         angularFrequency: 10,
         dampingRatio: 0.75,
         threshold: 1,
-        stopWhenHitTarget: true
+        stopWhenHitTarget: true,
     )
 
     static let forDragAnimation: Self = .init(
         angularFrequency: 8,
         dampingRatio: 0.7,
         threshold: 1,
-        stopWhenHitTarget: false
+        stopWhenHitTarget: false,
     )
 }
 
 public extension SpringInterpolation.Configuration {
     var settlingDuration: TimeInterval {
-        if angularFrequency == 0 { return 0 }
+        if angularFrequency == 0 {
+            return 0
+        }
 
         // We want to find t such that the envelope is approximately equal to threshold.
         // Note: This is an approximation.
@@ -100,7 +102,9 @@ public extension SpringInterpolation.Configuration {
             // Underdamped: Envelope is exp(-dampingRatio * angularFrequency * t)
             // We use a slightly more conservative estimate by considering the pre-factor is 1.
             // Ideally we should solve for the exact envelope but this is good enough for estimation.
-            if dampingRatio == 0 { return .infinity }
+            if dampingRatio == 0 {
+                return .infinity
+            }
             return -log(targetThreshold) / (dampingRatio * angularFrequency)
         } else if dampingRatio > 1.0 {
             // Overdamped: Dominant decay is exp((-zeta + sqrt(zeta^2 - 1)) * omega * t)

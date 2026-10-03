@@ -14,10 +14,10 @@ let package = Package(
     products: [
         .library(
             name: "SpringInterpolation",
-            targets: ["SpringInterpolation"]
+            targets: ["SpringInterpolation"],
         ),
     ],
     targets: [
         .target(name: "SpringInterpolation"),
-    ]
+    ],
 )
